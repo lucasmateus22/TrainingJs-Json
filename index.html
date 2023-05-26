@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="PT-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 97vw;
+        height: 98vh;
+        background-color: black;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    main{
+        width: 40%;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+    .itemLi{
+        position: relative;
+        margin: 10px;
+        list-style: none;
+        background-color: grey;
+        padding: 1%;
+        width: 190px;
+        border-radius: 5px;
+        border: 2px 0 0 0 white;
+        animation-name: showItem;
+        animation-duration: 1s;
+    }
+    .itemLi:hover{
+        background-color: rgb(53, 53, 53);
+        font-weight: bold;
+    }
+    @keyframes showItem {
+        from{
+            left: -200px;
+            opacity: 0;
+        }
+        to{
+            left: 0;
+            opacity: 1;
+        }   
+    }
+    button{
+        padding: 1%;
+        background-color: black;
+        border: 1px solid white;
+        border-radius: 5px;
+        font-weight: bolder;
+        color: white;
+    }
+    button:hover{
+        background-color: grey;
+        color: black;
+    }
+    </style>
+    <title>json</title>
+</head>
+<body>
+    <h1>Imprimindo dados de arquivo json com js</h1>
+    <main>
+        <button onclick="printJson()" id="buttonShowItem">show the Json</button>
+        <section id="blockList">
+        </section>
+        <script>
+        function printJson(){
+            let divOutPut = document.querySelector("#blockList")
+            let buttonCl = document.getElementById("buttonShowItem")
+                fetch('/db.json').then((response) => {
+                response.json().then((dados) => {
+                dados.produto.map((produtos) => {
+                console.log(produtos)
+                divOutPut.innerHTML += `<li class = "itemLi">${produtos.nome} - ${produtos.valor}</li>`
+                buttonCl.style.display = 'none'
+                })
+            })
+        })         
+    }
+        </script>
+    </main>
+</body>
+</html> 
